@@ -1,0 +1,109 @@
+Spiel eins
+
+Besitz_Straßen_Spieler{ 'Feld'=0;
+                'Feld'=1;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Straßen_Gegner{  'Feld'=1;
+                'Feld'=0;
+                'Feld'=1;
+                .
+                .
+                .
+                }
+
+Besitz_Bahnhöfe_Spieler{ 'Feld'=0;
+                'Feld'=1;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Bahnhöfe_Gegner{  'Feld'=1;
+                'Feld'=0;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Werke_Spieler{ 'Feld'=0;
+                'Feld'=1;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Werke_Gegner{  'Feld'=1;
+                'Feld'=0;
+                'Feld'=1;
+                .
+                .
+                .
+                }
+
+
+int Feld_Spieler
+int Feld_Gegner
+
+
+Spiel zwei
+
+snapshot 1
+Besitz_Straßen_Spieler{ 'Feld'=0;
+                'Feld'=1;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Straßen_Gegner{  'Feld'=1;
+                'Feld'=0;
+                'Feld'=1;
+                .
+                .
+                .
+                }
+
+Besitz_Bahnhöfe_Spieler{ 'Feld'=0;
+                'Feld'=1;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Bahnhöfe_Gegner{  'Feld'=1;
+                'Feld'=0;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Werke_Spieler{ 'Feld'=0;
+                'Feld'=1;
+                'Feld'=0;
+                .
+                .
+                .
+                }
+
+Besitz_Werke_Gegner{  'Feld'=1;
+                'Feld'=0;
+                'Feld'=1;
+                .
+                .
+                .
+                }
+
+
+int Feld_Spieler
+int Feld_Gegner
