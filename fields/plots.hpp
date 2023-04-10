@@ -1,4 +1,7 @@
-#include "../gesammelte_Header.hpp"
+#include <string>
+#include <array>
+#include <iostream>
+
 using namespace std;
 
 #ifndef PLOTS_HPP
@@ -28,7 +31,7 @@ class Werke{
     private:
         int Field;
         string Besitzer = "";
-        int Gruppe;
+        int group;
         string Werkname;
 
     public:

@@ -1,4 +1,9 @@
-#include "../gesammelte_Header.hpp"
+#include <vector>
+#include <string>
+#include <array>
+#include <time.h>
+#include <random>
+#include <iostream>
 using namespace std;
 
 #ifndef EVENT_FIELD_HPP
@@ -26,6 +31,13 @@ class Community_cest_Chance {
 
         string Text();
 };
+
+Community_cest_Chance Community_cest[16];
+Community_cest_Chance Chance[16];
+
+void Community_Cest();
+
+void chance();
 
 vector<int> Mix(vector<int> ToMix);
 

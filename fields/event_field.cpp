@@ -1,39 +1,36 @@
 #include "event_field.hpp"
 
-Kartenzuweisung(string Text){
+void Community_cest_Chance::Kartenzuweisung(string Text){
     text = Text;
 }
 
-Hotels_House_values(int House, int Hotel){
+void Community_cest_Chance::Hotels_House_values(int House, int Hotel){
     house = House;
     hotel = Hotel;
 }
 
-Money_transfer(int money){
+void Community_cest_Chance::Money_transfer(int money){
     money_transfer = money;
 }
 
-forward_backward(int Field, int money){
+void Community_cest_Chance::forward_backward(int Field, int money){
     field = Field;
     money_transfer = money;
 }
 
-Field_value(){
+int Community_cest_Chance::Field_value(){
     return field;
 }
 
-Money(){
+int Community_cest_Chance::Money(){
     return 200;
 }
 
-Text(){
+string Community_cest_Chance::Text(){
     return text;
 }
 
-Community_cest_Chance Community_cest[16];
-Community_cest_Chance Chance[16];
-
-Community_cest_Chance Community_Cest(int ) {
+void Community_Cest() {
     Community_cest[0].Kartenzuweisung("Sie kommen aus dem Gefängnis frei! Behalten Sie diese Karte, bis Sie sie benötigen oder verkaufen.");//muss noch überarbeitet werden
     Community_cest[1].Kartenzuweisung("Schuldgeld. Zahlen Sie 50€.");
     Community_cest[2].Kartenzuweisung("Urlaubsgeld! Sie erhalten 100€.");
@@ -102,10 +99,11 @@ void chance() {
     Chance[13].forward_backward(-3, 0);//muss noch so gerregelt werden, dass der Spieler 3 Felder zurück geht
 }
 
-vector<int> Mix(vector<int> Cards, int max) {
+vector<int> Mix(int max) {
     int card_value;
+    vector<int> Cards;
 
-    srand(card_value);
+    srand(time(0));
     for(int i1 = 0; i1 < max; i1++) {
         card_value = rand()%16+1;
         card_value--;
@@ -123,3 +121,6 @@ vector<int> Mix(vector<int> Cards, int max) {
     }
     return Cards;
 }
+
+vector<int> Community_cest_row = Mix(16);
+vector<int> Chance_row = Mix(16);

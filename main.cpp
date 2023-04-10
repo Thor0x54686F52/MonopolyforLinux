@@ -1,11 +1,8 @@
-#include "/fields/event_field.hpp"
-#include "/field/plots.hpp"
-#include "/player/player.hpp"
-#include "/dice/dice.hpp"
-using namespace std;
+#include "./fields/event_field.hpp"
+#include "./player/player.hpp"
+#include "./Dice/dice.hpp"
+#include <iostream>
 
 int main(){
-    std::vector<int> EreignisCardsrow = {};
-    std::vector<int> Gemeinschaftsrow = {};
     return 0;
 }

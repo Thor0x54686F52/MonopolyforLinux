@@ -24,7 +24,7 @@ string Player::Transaktion(int money){
     else{
         Money = Money+money;
     }
-    cout << "Der Kontostand beträgt: " << Money << "€" << endl;
+    std::cout << "Der Kontostand beträgt: " << Money << "€" << std::endl;
     return "0";
 }
 
@@ -37,6 +37,6 @@ int Player::Bewegen(int forward){
 }
 
 string Player::Besitzerauslesen(){
-    cout << "Spielser.h 67 der Besitzer ist: " << Name << endl;
+    std::cout << "Spielser.h 67 der Besitzer ist: " << Name << std::endl;
     return Name;
 }

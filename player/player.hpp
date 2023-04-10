@@ -1,4 +1,9 @@
-#include "gesammelte_Header.hpp"
+#include <vector>
+#include <array>
+#include <string>
+#include <time.h>
+#include <random>
+#include <iostream>
 using namespace std;
 
 #ifndef PLAYER_HPP
@@ -22,7 +27,7 @@ class Player{
 
         int Bewegen(int forward);
 
-        string Besitzerauslesen(); return Name;
+        string Besitzerauslesen();
 };
 
 #endif

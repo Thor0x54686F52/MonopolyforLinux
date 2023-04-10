@@ -1,7 +1,7 @@
 #include "plots.hpp"
 
 //Streets
-Grundstueke::allocation_values(int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1, string Name){
+void Grundstueke::allocation_values(int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1, string Name){
     Field=field;
     Preis_Grundstuek=preis;
     Miete=miete;
@@ -11,11 +11,11 @@ Grundstueke::allocation_values(int field, int preis, int miete, int preis_haus, 
     Strasenname=Name;
 }
 
-Grundstueke::Besitzerrueckgabe(){
+string Grundstueke::Besitzerrueckgabe(){
     return Besitzer;
 }
 
-Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer2) {
+int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer2) {
 /*Wenn die Straße nicht dem Spieler der auf diese Straße gelandet ist gehört, wird durch abfragen der Besitzer der Straßen, geprüft, ob eine erhöte Miete gezahlt werden muss.
     Dafür müssen jedoch auserhalb dieser Funktion die Besitzer der anderen Straßen dieser Gruppe abgefragt werden, da es in dieser Funktion sonst zu Fehlern bei der Kompilierung kommt
     Wenn der Spieler keine erhöte Miete zahlen muss, wird geprüft obder Spieler die normale Miete zahlen muss.
@@ -36,7 +36,7 @@ Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer2) {
         return 0;
     }
     else if(Besitzer == ""){
-        cout << "Wollen Sie die Straße " << Strasenname << " um " << Preis_Grundstuek << " kaufen? " << endl;
+        std::cout << "Wollen Sie die Straße " << Strasenname << " um " << Preis_Grundstuek << " kaufen? " << std::endl;
         cin >> besitzer; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
         Besitzer = besitzer;
         if(besitzer == "ja"){
@@ -50,15 +50,15 @@ Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer2) {
 }
 
 //trainstations
-Werke::allocation_values(int field, int gruppe0, int gruppe1, int gruppe2, string Name){
-        Field=field;
-        Gruppe[0]=gruppe0;
-        Gruppe[1]=gruppe1;
-        Gruppe[2]=gruppe2;
-        train_station=Name;
-    }
+void Train_Station::allocation_values(int field, int gruppe0, int gruppe1, int gruppe2, string Name){
+    Field=field;
+    Gruppe[0]=gruppe0;
+    Gruppe[1]=gruppe1;
+    Gruppe[2]=gruppe2;
+    train_station=Name;
+}
 
-Werke::Miete(string schueldiger, string Besitzer0, string Besitzer1, string Besitzer2){
+int Train_Station::Miete(string schueldiger, string Besitzer0, string Besitzer1, string Besitzer2){
     if(Besitzer!=Besitzer0 && Besitzer!=Besitzer1 && Besitzer!=Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
         return 25;
     }
@@ -99,18 +99,14 @@ Werke::Miete(string schueldiger, string Besitzer0, string Besitzer1, string Besi
     return 0;
 }
 
-Werke::allocation_values(){
-    return Besitzer;
-}
-
 //Werke
-Train_Station::allocation_values(int field, int gruppe, string Name){
+void Werke::allocation_values(int field, int gruppe, string Name){
     Field=field;
-    Gruppe=gruppe;
+    group=gruppe;
     Werkname=Name;
 }
 
-Train_Station::Miete(int Wuerfelaugen, string schueldiger, string besitzer1, string besitzer2){
+int Werke::miete(int Wuerfelaugen, string schueldiger, string besitzer1, string besitzer2){
     if(besitzer1 == Besitzer && Besitzer != "" && schueldiger != Besitzer && besitzer2 != Besitzer){
         return Wuerfelaugen*4;
     }
@@ -133,12 +129,12 @@ Train_Station::Miete(int Wuerfelaugen, string schueldiger, string besitzer1, str
     return 666;
 }
 
-Train_Station::Besitzerauslesen(){
+string Werke::Besitzerauslesen(){
     return Besitzer;
 }
 
 //everything
-allocation_values_streets(){
+void allocation_values_streets(){
     Strasen[0].allocation_values(1, 60, 2, 50, 1, 30, "Esterhazystrasse");
     Strasen[1].allocation_values(3, 60, 4, 50, 0, 30, "Kremserstrasse");
 
@@ -170,19 +166,19 @@ allocation_values_streets(){
     Strasen[21].allocation_values(39, 400, 100, 200, 20, 30,"Kaiserstrasse");
 }
 
-allocation_values_Werke(){
+void allocation_values_Werke(){
     Kraftwerke[0].allocation_values(12, 1, "Elektrizitaetswerk");
     Kraftwerke[1].allocation_values(28, 0, "Wasserwerk");
 }
 
-allocation_values_train_station(){
+void allocation_values_train_station(){
     train_station[0].allocation_values(5, 15, 25, 35, "Bahnhof Wien Hauptbahnhof");
     train_station[1].allocation_values(15, 5, 25, 35, "Westbahnhof");
     train_station[2].allocation_values(25, 5, 15, 35, "Wien Hauptbahnhof");
     train_station[3].allocation_values(35, 5, 15, 25, "Franz Josef Bahnhof");
 }
 
-allocation_values(){
+void allocation_values(){
     allocation_values_streets();
     allocation_values_Werke();
     allocation_values_train_station();
