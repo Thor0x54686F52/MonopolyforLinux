@@ -1,46 +1,36 @@
-#include "gesammelte_Header.hpp"
-using namespace std;
+#include "event_field.hpp"
 
-class Community_cest_Chance{
-private:
-    string text;
-    int money_transfer;//is for the money the player have to pay
-    int field;//is for the field which the player have to move
-    int house;//is for the price of a house when it have to be renovateted
-    int hotel;//is for the price of a hotel when it have to be renovateted
-public:
-    void Kartenzuweisung(string Text){
-        text = Text;
-    }
-    void Hotels_House_values(int House, int Hotel){
-        house = House;
-        hotel = Hotel;
-    }
-    void Money_transfer(int money){
-        money_transfer = money;
-    }
-    void forward_backward(int Field, int money){
-        field = Field;
-        money_transfer = money;
-    }
-    
-    int Field_value(){//gives back the Fieldnummber where the player have to go. If the player comes over start, the player calls the funktion "Money()" which gives the player the money for coming over start
-        return field;
-    }
-    int Money(){
-        return 200;
-    }
-    string Text(){
-        return text;
-    }
-};
+void Community_cest_Chance::Kartenzuweisung(string Text){
+    text = Text;
+}
 
+void Community_cest_Chance::Hotels_House_values(int House, int Hotel){
+    house = House;
+    hotel = Hotel;
+}
 
+void Community_cest_Chance::Money_transfer(int money){
+    money_transfer = money;
+}
 
-Community_cest_Chance Community_cest[16];
-Community_cest_Chance Chance[16];
+void Community_cest_Chance::forward_backward(int Field, int money){
+    field = Field;
+    money_transfer = money;
+}
 
-void Community_Cest(){
+int Community_cest_Chance::Field_value(){
+    return field;
+}
+
+int Community_cest_Chance::Money(){
+    return 200;
+}
+
+string Community_cest_Chance::Text(){
+    return text;
+}
+
+void Community_Cest() {
     Community_cest[0].Kartenzuweisung("Sie kommen aus dem Gefängnis frei! Behalten Sie diese Karte, bis Sie sie benötigen oder verkaufen.");//muss noch überarbeitet werden
     Community_cest[1].Kartenzuweisung("Schuldgeld. Zahlen Sie 50€.");
     Community_cest[2].Kartenzuweisung("Urlaubsgeld! Sie erhalten 100€.");
@@ -76,7 +66,7 @@ void Community_Cest(){
     Community_cest[14].forward_backward(0, 200);
 }
 
-void chance(){
+void chance() {
     Chance[0].Kartenzuweisung("Rücken Sie vor bis zur Kaiserstrasse.");
     Chance[1].Kartenzuweisung("Machen Sie einen Ausflug zum Bahnhof Wien Hauptbahnhof. Wenn Sie über Los kommen, ziehen Sie 200€ ein.");
     Chance[2].Kartenzuweisung("Ihr Bausparvertrag wird fällig. Sie erhalten 200€.");
@@ -108,3 +98,29 @@ void chance(){
     Chance[10].forward_backward(24, 200);
     Chance[13].forward_backward(-3, 0);//muss noch so gerregelt werden, dass der Spieler 3 Felder zurück geht
 }
+
+vector<int> Mix(int max) {
+    int card_value;
+    vector<int> Cards;
+
+    srand(time(0));
+    for(int i1 = 0; i1 < max; i1++) {
+        card_value = rand()%16+1;
+        card_value--;
+        for(int i2 = 0; i2 < 16; i2++) { //looks if a index is already in use
+            if(card_value == Cards[i2]) {
+                card_value = rand()%16+1;
+                card_value--;
+                i2 = -1;
+            }
+        }
+        Cards[i1] = card_value;
+    }
+    for(int i = 0; i < 16; i++) {
+        std::cout << Cards[i] << std::endl;
+    }
+    return Cards;
+}
+
+vector<int> Community_cest_row = Mix(16);
+vector<int> Chance_row = Mix(16);
