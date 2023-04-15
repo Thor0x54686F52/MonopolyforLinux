@@ -5,15 +5,14 @@ int Random(int max) {
     return std::uniform_int_distribution<int>{0, max - 1}(e);
 }
 
-std::vector<int> Mix_vector(int max, std::vector<int> mixingvector) {
+std::vector<int> Mix_vector(int max) {
+    std::vector<int> mixingvector;
     int card_value;
     for(int i = 0; i < max; i++) {
         card_value = Random(max);
-        card_value--;
         for(int j = 0; j < i; j++) { //looks if a index is already in use
             if(card_value == mixingvector[j]) {
                 card_value = Random(max);
-                card_value--;
                 j = -1;
             }
         }
