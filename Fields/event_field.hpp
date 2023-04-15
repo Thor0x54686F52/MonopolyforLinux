@@ -1,8 +1,6 @@
 #include <vector>
 #include <string>
 #include <array>
-#include <time.h>
-#include <random>
 #include <iostream>
 using namespace std;
 
@@ -32,13 +30,6 @@ class Community_cest_Chance {
         string Text();
 };
 
-Community_cest_Chance Community_cest[16];
-Community_cest_Chance Chance[16];
-
-void Community_Cest();
-
-void chance();
-
-vector<int> Mix(vector<int> ToMix);
-
+array<Community_cest_Chance, 16> Community_Chest();
+array<Community_cest_Chance, 16> Chance();
 #endif

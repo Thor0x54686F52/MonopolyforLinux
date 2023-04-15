@@ -3,7 +3,7 @@ cmake_install.cmake
 CMakeCache.txt
 Makefile
 Monopoly_for_Linux
-libdice.a
+libown_random_libary.a
 libevent_field.a
 libplayer.a
 libplots.a

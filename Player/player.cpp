@@ -1,31 +1,27 @@
 #include "player.hpp"
 
-void Player::Benennen(string name, int money, int field, bool prison){
+void Player::Benennen(string name){
     Name = name;
-    Money = money;
-    Field = field;
-    Prison = prison;
 }
 
 void Player::Caught(bool caught){
     Prison = caught;
 }
 
-string Player::Transaktion(int money){
+bool Player::Transaktion(int money){
     if(money < 0){
         money = money*(-1);
-        if(money < Money){
+        if(money <= Money){
             Money = Money-money;
         }
         if(money > Money) {
-            return "zu wenig Geld";
+            return false;
         }
     }
     else{
         Money = Money+money;
     }
-    std::cout << "Der Kontostand beträgt: " << Money << "€" << std::endl;
-    return "0";
+    return true;
 }
 
 int Player::Bewegen(int forward){
@@ -37,6 +33,5 @@ int Player::Bewegen(int forward){
 }
 
 string Player::Besitzerauslesen(){
-    std::cout << "Spielser.h 67 der Besitzer ist: " << Name << std::endl;
     return Name;
 }
