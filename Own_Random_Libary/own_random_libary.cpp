@@ -23,15 +23,7 @@ std::vector<int> Mix_vector(int max) {
 
 std::vector<int> Rolling_Dice() {
     std::vector<int> dice_vector;
-    int dice1 = Random(6) + 1;
-    int dice2 = Random(6) + 1;
-
-    dice_vector.push_back(dice1 + dice2);
-    if(dice1 == dice2) {
-        dice_vector.push_back(1);
-    }
-    else {
-        dice_vector.push_back(0);
-    }
+    dice_vector.push_back(Random(6) + 1);
+    dice_vector.push_back(Random(6) + 1);
     return dice_vector;
 }

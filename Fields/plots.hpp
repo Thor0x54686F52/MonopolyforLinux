@@ -12,15 +12,18 @@ class Grundstueke{ //dient zur Nummerierung und zuweisung der Grundstücke zu de
         int Field;
         string Besitzer = "";
         int Preis_Grundstuek;
-        int miete;
         int Preis_Haus;
-        int Gruppe1;
-        int Gruppe2;
+        std::vector group;
+        /*
+          It takes the index of the street in the array from the street.
+          If the player wants to build on one street, it takes the index of the other street(s) and looks what the owner of that street(s) is.
+          If the player is the owner of all of that streets, he/she can build
+        */
         string Strasenname;
         int Miete;
 
     public:
-        void allocation_values(int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1, string Name);
+        Grundstueke(string Name,int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1);
 
         string Besitzerrueckgabe();
 

@@ -4,6 +4,6 @@
 #include "./Own_Random_Libary/own_random_libary.hpp"
 #include <iostream>
 
-int main(){
+int main() {
     return 0;
 }

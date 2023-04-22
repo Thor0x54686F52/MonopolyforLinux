@@ -13,3 +13,5 @@ target_link_libraries(Monopoly_for_Linux PRIVATE own_random_libary)
 target_link_libraries(Monopoly_for_Linux PRIVATE event_field)
 target_link_libraries(Monopoly_for_Linux PRIVATE plots)
 target_link_libraries(Monopoly_for_Linux PRIVATE player)
+
+target_link_libraries(player own_random_libary)

@@ -1,14 +1,13 @@
 #include "plots.hpp"
 
 //Streets
-void Grundstueke::allocation_values(int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1, string Name){
+Grundstueke::Grundstueke(string Name, int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1 = 0){
     Field=field;
     Preis_Grundstuek=preis;
     Miete=miete;
     Preis_Haus=preis_haus;
-    Gruppe1=gruppe0;
-    Gruppe2=gruppe1;
     Strasenname=Name;
+    group.pushback(gruppe0);
 }
 
 string Grundstueke::Besitzerrueckgabe(){
@@ -135,35 +134,35 @@ string Werke::Besitzerauslesen(){
 
 //everything
 void allocation_values_streets(){
-    Strasen[0].allocation_values(1, 60, 2, 50, 1, 30, "Esterhazystrasse");
-    Strasen[1].allocation_values(3, 60, 4, 50, 0, 30, "Kremserstrasse");
+    Strasen[0] = Grundstueke("Esterhazystrasse", 1, 60, 2, 50, 1);
+    Strasen[1] = Grundstueke("Kremserstrasse", 3, 60, 4, 50, 0);
 
-    Strasen[2].allocation_values(6, 100, 6, 50, 3, 4, "Grieskai");
-    Strasen[3].allocation_values(8, 100, 6, 50, 2, 4, "Herrengasse");
-    Strasen[4].allocation_values(9, 120, 8, 50, 2, 3, "Annenstrasse");
+    Strasen[2] = Grundstueke("Grieskai", 6, 100, 6, 50, 3, 4);
+    Strasen[3] = Grundstueke("Herrengasse", 8, 100, 6, 50, 2, 4);
+    Strasen[4] = Grundstueke("Annenstrasse", 9, 120, 8, 50, 2, 3);
 
-    Strasen[5].allocation_values(11, 140, 10, 100, 6, 7,"Untere Donaulände");
-    Strasen[6].allocation_values(13, 140, 10, 100, 5, 7, "Taubenmarkt");
-    Strasen[7].allocation_values(14, 160, 12, 100, 5, 6, "Landstrasse");
+    Strasen[5] = Grundstueke("Untere Donaulände", 11, 140, 10, 100, 6, 7);
+    Strasen[6] = Grundstueke("Taubenmarkt", 13, 140, 10, 100, 5, 7);
+    Strasen[7] = Grundstueke("Landstrasse", 14, 160, 12, 100, 5, 6);
 
-    Strasen[8].allocation_values(16, 180, 14, 100, 9, 10, "Mariatheresienstrasse");
-    Strasen[9].allocation_values(18, 180, 14, 100, 8, 10, "Herzogfriedrichstrasse");
-    Strasen[10].allocation_values(19, 200, 16, 100, 8, 9, "Andreashoferstrasse");
+    Strasen[8] = Grundstueke("Mariatheresienstrasse", 16, 180, 14, 100, 9, 10);
+    Strasen[9] = Grundstueke("Herzogfriedrichstrasse", 18, 180, 14, 100, 8, 10);
+    Strasen[10] = Grundstueke("Andreashoferstrasse", 19, 200, 16, 100, 8, 9);
 
-    Strasen[11].allocation_values(21, 220, 18, 150, 12, 13, "10. Oktoberstrasse");
-    Strasen[12].allocation_values(23, 220, 18, 150, 11, 13, "Neuer Platz");
-    Strasen[13].allocation_values(24, 240, 20, 150, 11, 12, "Gramergasse");
+    Strasen[11] = Grundstueke("10. Oktoberstrasse", 21, 220, 18, 150, 12, 13);
+    Strasen[12] = Grundstueke("Neuer Platz", 23, 220, 18, 150, 11, 13);
+    Strasen[13] = Grundstueke("Gramergasse", 24, 240, 20, 150, 11, 12);
 
-    Strasen[14].allocation_values(26, 260, 22, 150, 15, 16, "Hellbrunnerstrasse");
-    Strasen[15].allocation_values(27, 260, 22, 150, 14, 16, "Domplatz");
-    Strasen[16].allocation_values(29, 280, 24, 150, 14, 15, "Gedreidegasse");
+    Strasen[14] = Grundstueke("Hellbrunnerstrasse", 26, 260, 22, 150, 15, 16);
+    Strasen[15] = Grundstueke("Domplatz", 27, 260, 22, 150, 14, 16);
+    Strasen[16] = Grundstueke("Gedreidegasse", 29, 280, 24, 150, 14, 15);
 
-    Strasen[17].allocation_values(31, 300, 26, 200, 18, 19, "Mariahilferstrasse");
-    Strasen[18].allocation_values(33, 300, 26, 200, 17, 19, "Kärntnerstrasse");
-    Strasen[19].allocation_values(34, 340, 28, 200, 17, 18, "Graben");
+    Strasen[17] = Grundstueke("Mariahilferstrasse", 31, 300, 26, 200, 18, 19);
+    Strasen[18] = Grundstueke("Kärntnerstrasse", 33, 300, 26, 200, 17, 19);
+    Strasen[19] = Grundstueke("Graben", 34, 340, 28, 200, 17, 18);
 
-    Strasen[20].allocation_values(37, 350, 50, 200, 21, 30, "Kronmarktstrasse");
-    Strasen[21].allocation_values(39, 400, 100, 200, 20, 30,"Kaiserstrasse");
+    Strasen[20] = Grundstueke("Kronmarktstrasse", 37, 350, 50, 200, 21);
+    Strasen[21] = Grundstueke("Kaiserstrasse", 39, 400, 100, 200, 20);
 }
 
 void allocation_values_Werke(){
