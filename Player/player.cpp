@@ -12,20 +12,17 @@ void Player::Transaktion(int money) {
         }
         if(money > Money) {
             std::cout << "To less money" << std::endl;
-            return;
         }
     }
     else {
         Money = Money+money;
     }
-    return;
 }
 
 int Player::Bewegen() {
     if(prison) {
         Prison();
     }
-
     std::vector<int> dice = Rolling_Dice();
     for(int i = 0; i < 3; i++) {
         Field = Field + dice[0] + dice[1];

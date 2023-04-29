@@ -1,6 +1,7 @@
 #include <string>
 #include <array>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ class Grundstueke{ //dient zur Nummerierung und zuweisung der Grundstücke zu de
         string Besitzer = "";
         int Preis_Grundstuek;
         int Preis_Haus;
-        std::vector group;
+        std::vector<int> group;
         /*
           It takes the index of the street in the array from the street.
           If the player wants to build on one street, it takes the index of the other street(s) and looks what the owner of that street(s) is.
@@ -23,11 +24,19 @@ class Grundstueke{ //dient zur Nummerierung und zuweisung der Grundstücke zu de
         int Miete;
 
     public:
+        Grundstueke();
+
         Grundstueke(string Name,int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1);
 
         string Besitzerrueckgabe();
 
         int Miete_zahlen(string besitzer, string besitzer1, string besitzer2);
+
+        int Buy(string buyer);
+
+        int Buy();
+
+        int give_Field();
 };
 
 class Werke{
@@ -60,16 +69,34 @@ class Train_Station{
         string Besitzerauslesen();
 };
 
-Grundstueke Strasen[22];
-Werke Kraftwerke[2];
-Train_Station train_station[4];
+/*
+  std::array<Grundstueke, 22> Strasen;
+  std::array<Werke, 22> Kraftwerke;
+  std::array<Train_Station, 22> train_station;
+  has to be declaird in main()
+*/
 
-void allocation_values_streets();
+std::array<Grundstueke, 22> allocation_values_streets();
 
 void allocation_values_Werke();
 
 void allocation_values_train_station();
 
 void allocation_values();
+
+std::array<int, 3> Check_field(int field);
+/*
+  First value can be 0, 1, 2, 3
+   - 0 stands for Grundstueke
+   - 1 stands for Werke
+   - 2 stands for Train_Stations
+   - 3 stands for nothing of them
+
+  Second value stands if it's bought allready, if it can be bougt
+   - 0 stands for "You can't buy it"
+   - 1 stands for "You can buy it"
+
+  Third value is the price, if it can be bougt
+*/
 
 #endif

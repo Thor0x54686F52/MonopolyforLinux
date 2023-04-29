@@ -28,8 +28,6 @@ class Player {
     public:
         Player(string name);
 
-        void Benennen(string name);
-
         int Prison();
 
         void Transaktion(int money);

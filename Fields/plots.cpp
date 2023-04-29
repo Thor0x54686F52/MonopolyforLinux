@@ -1,13 +1,15 @@
 #include "plots.hpp"
 
 //Streets
+Grundstueke::Grundstueke() {}
+
 Grundstueke::Grundstueke(string Name, int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1 = 0){
     Field=field;
     Preis_Grundstuek=preis;
     Miete=miete;
     Preis_Haus=preis_haus;
     Strasenname=Name;
-    group.pushback(gruppe0);
+    group.push_back(gruppe0);
 }
 
 string Grundstueke::Besitzerrueckgabe(){
@@ -26,10 +28,10 @@ int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer
     if(Besitzer != besitzer &&
         (Besitzer != besitzer1 && besitzer == besitzer1) &&
         (Besitzer != besitzer2 && (besitzer == besitzer2 || besitzer2 == "30"))){
-        return miete*(-2);
+        return Miete*(-2);
     }
     else if(Besitzer != besitzer){
-        return miete*(-1);
+        return Miete*(-1);
     }
     else if(Besitzer == besitzer) {
         return 0;
@@ -46,6 +48,21 @@ int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer
         }
     }
     return 666;
+}
+
+int Grundstueke::Buy(string buyer) {
+    if(Besitzer == ""){
+        return Preis_Grundstuek;
+    }
+    return 0;
+}
+
+int Grundstueke::Buy(){
+    return Preis_Grundstuek;
+}
+
+int Grundstueke::give_Field() {
+    return Field;
 }
 
 //trainstations
@@ -133,44 +150,48 @@ string Werke::Besitzerauslesen(){
 }
 
 //everything
-void allocation_values_streets(){
-    Strasen[0] = Grundstueke("Esterhazystrasse", 1, 60, 2, 50, 1);
-    Strasen[1] = Grundstueke("Kremserstrasse", 3, 60, 4, 50, 0);
+std::array<Grundstueke, 22> allocation_values_streets(){
+    std::array<Grundstueke, 22> Streets;
+    Streets[0] = Grundstueke("Esterhazystrasse", 1, 60, 2, 50, 1);
+    Streets[1] = Grundstueke("Kremserstrasse", 3, 60, 4, 50, 0);
 
-    Strasen[2] = Grundstueke("Grieskai", 6, 100, 6, 50, 3, 4);
-    Strasen[3] = Grundstueke("Herrengasse", 8, 100, 6, 50, 2, 4);
-    Strasen[4] = Grundstueke("Annenstrasse", 9, 120, 8, 50, 2, 3);
+    Streets[2] = Grundstueke("Grieskai", 6, 100, 6, 50, 3, 4);
+    Streets[3] = Grundstueke("Herrengasse", 8, 100, 6, 50, 2, 4);
+    Streets[4] = Grundstueke("Annenstrasse", 9, 120, 8, 50, 2, 3);
 
-    Strasen[5] = Grundstueke("Untere Donaulände", 11, 140, 10, 100, 6, 7);
-    Strasen[6] = Grundstueke("Taubenmarkt", 13, 140, 10, 100, 5, 7);
-    Strasen[7] = Grundstueke("Landstrasse", 14, 160, 12, 100, 5, 6);
+    Streets[5] = Grundstueke("Untere Donaulände", 11, 140, 10, 100, 6, 7);
+    Streets[6] = Grundstueke("Taubenmarkt", 13, 140, 10, 100, 5, 7);
+    Streets[7] = Grundstueke("Landstrasse", 14, 160, 12, 100, 5, 6);
 
-    Strasen[8] = Grundstueke("Mariatheresienstrasse", 16, 180, 14, 100, 9, 10);
-    Strasen[9] = Grundstueke("Herzogfriedrichstrasse", 18, 180, 14, 100, 8, 10);
-    Strasen[10] = Grundstueke("Andreashoferstrasse", 19, 200, 16, 100, 8, 9);
+    Streets[8] = Grundstueke("Mariatheresienstrasse", 16, 180, 14, 100, 9, 10);
+    Streets[9] = Grundstueke("Herzogfriedrichstrasse", 18, 180, 14, 100, 8, 10);
+    Streets[10] = Grundstueke("Andreashoferstrasse", 19, 200, 16, 100, 8, 9);
 
-    Strasen[11] = Grundstueke("10. Oktoberstrasse", 21, 220, 18, 150, 12, 13);
-    Strasen[12] = Grundstueke("Neuer Platz", 23, 220, 18, 150, 11, 13);
-    Strasen[13] = Grundstueke("Gramergasse", 24, 240, 20, 150, 11, 12);
+    Streets[11] = Grundstueke("10. Oktoberstrasse", 21, 220, 18, 150, 12, 13);
+    Streets[12] = Grundstueke("Neuer Platz", 23, 220, 18, 150, 11, 13);
+    Streets[13] = Grundstueke("Gramergasse", 24, 240, 20, 150, 11, 12);
 
-    Strasen[14] = Grundstueke("Hellbrunnerstrasse", 26, 260, 22, 150, 15, 16);
-    Strasen[15] = Grundstueke("Domplatz", 27, 260, 22, 150, 14, 16);
-    Strasen[16] = Grundstueke("Gedreidegasse", 29, 280, 24, 150, 14, 15);
+    Streets[14] = Grundstueke("Hellbrunnerstrasse", 26, 260, 22, 150, 15, 16);
+    Streets[15] = Grundstueke("Domplatz", 27, 260, 22, 150, 14, 16);
+    Streets[16] = Grundstueke("Gedreidegasse", 29, 280, 24, 150, 14, 15);
 
-    Strasen[17] = Grundstueke("Mariahilferstrasse", 31, 300, 26, 200, 18, 19);
-    Strasen[18] = Grundstueke("Kärntnerstrasse", 33, 300, 26, 200, 17, 19);
-    Strasen[19] = Grundstueke("Graben", 34, 340, 28, 200, 17, 18);
+    Streets[17] = Grundstueke("Mariahilferstrasse", 31, 300, 26, 200, 18, 19);
+    Streets[18] = Grundstueke("Kärntnerstrasse", 33, 300, 26, 200, 17, 19);
+    Streets[19] = Grundstueke("Graben", 34, 340, 28, 200, 17, 18);
 
-    Strasen[20] = Grundstueke("Kronmarktstrasse", 37, 350, 50, 200, 21);
-    Strasen[21] = Grundstueke("Kaiserstrasse", 39, 400, 100, 200, 20);
+    Streets[20] = Grundstueke("Kronmarktstrasse", 37, 350, 50, 200, 21);
+    Streets[21] = Grundstueke("Kaiserstrasse", 39, 400, 100, 200, 20);
+    return Streets;
 }
 
 void allocation_values_Werke(){
+    array<Werke, 2> Kraftwerke;
     Kraftwerke[0].allocation_values(12, 1, "Elektrizitaetswerk");
     Kraftwerke[1].allocation_values(28, 0, "Wasserwerk");
 }
 
 void allocation_values_train_station(){
+    array<Train_Station, 4> train_station;
     train_station[0].allocation_values(5, 15, 25, 35, "Bahnhof Wien Hauptbahnhof");
     train_station[1].allocation_values(15, 5, 25, 35, "Westbahnhof");
     train_station[2].allocation_values(25, 5, 15, 35, "Wien Hauptbahnhof");
@@ -181,4 +202,22 @@ void allocation_values(){
     allocation_values_streets();
     allocation_values_Werke();
     allocation_values_train_station();
+}
+
+std::array<int, 3> Check_field(int field) {
+    std::array<int, 3> giveback;
+    std::array<Grundstueke, 22> Streets = allocation_values_streets();
+    for(int i = 0; i < 22; i++) {
+        if(field == Streets[i].give_Field()){
+            if(Streets[i].Besitzerrueckgabe() == ""){
+                giveback[1] = 0;
+            }
+            else {
+                giveback[1] == 1;
+                giveback[2] == Streets[i].Buy();
+            }
+            giveback[0] = 0;
+        }
+    }
+    return giveback;
 }
