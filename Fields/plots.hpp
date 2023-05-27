@@ -11,7 +11,7 @@ using namespace std;
 class Grundstueke{ //dient zur Nummerierung und zuweisung der Grundstücke zu den einzelnen Spielern
     private:
         int Field;
-        string Besitzer = "";
+        string Owner = "";
         int Preis_Grundstuek;
         int Preis_Haus;
         std::vector<int> group;
@@ -32,9 +32,9 @@ class Grundstueke{ //dient zur Nummerierung und zuweisung der Grundstücke zu de
 
         int Miete_zahlen(string besitzer, string besitzer1, string besitzer2);
 
-        int Buy(string buyer);
+        void Buy(string buyer);
 
-        int Buy();
+        int ret_price();
 
         int give_Field();
 };
@@ -42,7 +42,7 @@ class Grundstueke{ //dient zur Nummerierung und zuweisung der Grundstücke zu de
 class Werke{
     private:
         int Field;
-        string Besitzer = "";
+        string Owner = "";
         int group;
         string Werkname;
 
@@ -51,14 +51,20 @@ class Werke{
 
         int miete(int Wuerfelaugen, string schueldiger, string besitzer1, string besitzer2);
 
-        string Besitzerauslesen();
+        string Besitzerrueckgabe();
+
+        int give_Field();
+
+        int ret_price();
+
+        void Buy(string buyer);
 };
 
 class Train_Station{
     private:
         int Field;
         int Gruppe[3];
-        string Besitzer="";
+        string Owner="";
         string train_station;
 
     public:
@@ -66,21 +72,20 @@ class Train_Station{
 
         int Miete(string schueldiger, string Besitzer0, string Besitzer1, string Besitzer2);
 
-        string Besitzerauslesen();
-};
+        string Besitzerrueckgabe();
 
-/*
-  std::array<Grundstueke, 22> Strasen;
-  std::array<Werke, 22> Kraftwerke;
-  std::array<Train_Station, 22> train_station;
-  has to be declaird in main()
-*/
+        int ret_price();
+
+        int give_Field();
+
+        void Buy(string buyer);
+};
 
 std::array<Grundstueke, 22> allocation_values_streets();
 
-void allocation_values_Werke();
+std::array<Werke, 2> allocation_values_Werke();
 
-void allocation_values_train_station();
+std::array<Train_Station, 4> allocation_values_train_station();
 
 void allocation_values();
 

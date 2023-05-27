@@ -13,7 +13,7 @@ Grundstueke::Grundstueke(string Name, int field, int preis, int miete, int preis
 }
 
 string Grundstueke::Besitzerrueckgabe(){
-    return Besitzer;
+    return Owner;
 }
 
 int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer2) {
@@ -25,21 +25,21 @@ int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer
     Wenn das zutrifft, wird der Spieler gefragt, ob dieser diese Straße kaufen will.
     Wenn durch einen Fehler, keine dieser Möglichkeiten zutrifft, dass heißt, wenn der Teufel seine Finger im Spiel hat ;), wird 666 zurückgegeben.
 */
-    if(Besitzer != besitzer &&
-        (Besitzer != besitzer1 && besitzer == besitzer1) &&
-        (Besitzer != besitzer2 && (besitzer == besitzer2 || besitzer2 == "30"))){
+    if(Owner != besitzer &&
+        (Owner != besitzer1 && besitzer == besitzer1) &&
+        (Owner != besitzer2 && (besitzer == besitzer2 || besitzer2 == "30"))){
         return Miete*(-2);
     }
-    else if(Besitzer != besitzer){
+    else if(Owner != besitzer){
         return Miete*(-1);
     }
-    else if(Besitzer == besitzer) {
+    else if(Owner == besitzer) {
         return 0;
     }
-    else if(Besitzer == ""){
+    else if(Owner == ""){
         std::cout << "Wollen Sie die Straße " << Strasenname << " um " << Preis_Grundstuek << " kaufen? " << std::endl;
         cin >> besitzer; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
-        Besitzer = besitzer;
+        Owner = besitzer;
         if(besitzer == "ja"){
             return Preis_Grundstuek*(-1);
         }
@@ -50,14 +50,11 @@ int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer
     return 666;
 }
 
-int Grundstueke::Buy(string buyer) {
-    if(Besitzer == ""){
-        return Preis_Grundstuek;
-    }
-    return 0;
+void Grundstueke::Buy(string buyer) {
+    Owner = buyer;
 }
 
-int Grundstueke::Buy(){
+int Grundstueke::ret_price() {
     return Preis_Grundstuek;
 }
 
@@ -75,44 +72,60 @@ void Train_Station::allocation_values(int field, int gruppe0, int gruppe1, int g
 }
 
 int Train_Station::Miete(string schueldiger, string Besitzer0, string Besitzer1, string Besitzer2){
-    if(Besitzer!=Besitzer0 && Besitzer!=Besitzer1 && Besitzer!=Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner!=Besitzer0 && Owner!=Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 25;
     }
-    if(Besitzer!=Besitzer0 && Besitzer!=Besitzer1 && Besitzer==Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner!=Besitzer0 && Owner!=Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 50;
     }
-    if(Besitzer!=Besitzer0 && Besitzer==Besitzer1 && Besitzer!=Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner!=Besitzer0 && Owner==Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 50;
     }
-    if(Besitzer==Besitzer0 && Besitzer!=Besitzer1 && Besitzer!=Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner==Besitzer0 && Owner!=Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 50;
     }
-    if(Besitzer!=Besitzer0 && Besitzer==Besitzer1 && Besitzer==Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner!=Besitzer0 && Owner==Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 100;
     }
-    if(Besitzer==Besitzer0 && Besitzer!=Besitzer1 && Besitzer==Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner==Besitzer0 && Owner!=Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 100;
     }
-    if(Besitzer==Besitzer0 && Besitzer==Besitzer1 && Besitzer!=Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner==Besitzer0 && Owner==Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 100;
     }
-    if(Besitzer==Besitzer0 && Besitzer==Besitzer1 && Besitzer==Besitzer2 && Besitzer!=schueldiger && Besitzer!=""){
+    if(Owner==Besitzer0 && Owner==Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
         return 200;
     }
-    if(Besitzer==schueldiger){
+    if(Owner==schueldiger){
         return 0;
     }
-    if(Besitzer==""){
+    if(Owner==""){
         cout << "Wollen Sie den train_station " << train_station << " um 200€ kaufen? " << endl;
-        cin >> Besitzer; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
-        if(Besitzer == "ja"){
+        cin >> Owner; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
+        if(Owner == "ja"){
             return -200;
         }
-        if(Besitzer != "nein"){
+        if(Owner != "nein"){
             return 0;
         }
     }
     return 0;
+}
+
+string Train_Station::Besitzerrueckgabe() {
+    return Owner;
+}
+
+int Train_Station::ret_price() {
+    return 200;
+}
+
+int Train_Station::give_Field() {
+    return Field;
+}
+
+void Train_Station::Buy(string buyer) {
+    Owner = buyer;
 }
 
 //Werke
@@ -123,30 +136,42 @@ void Werke::allocation_values(int field, int gruppe, string Name){
 }
 
 int Werke::miete(int Wuerfelaugen, string schueldiger, string besitzer1, string besitzer2){
-    if(besitzer1 == Besitzer && Besitzer != "" && schueldiger != Besitzer && besitzer2 != Besitzer){
+    if(besitzer1 == Owner && Owner != "" && schueldiger != Owner && besitzer2 != Owner){
         return Wuerfelaugen*4;
     }
-    else if(besitzer1 == Besitzer && besitzer2 == Besitzer && Besitzer != "" && schueldiger != Besitzer){
+    else if(besitzer1 == Owner && besitzer2 == Owner && Owner != "" && schueldiger != Owner){
         return Wuerfelaugen*10;
     }
-    else if(schueldiger == Besitzer){
+    else if(schueldiger == Owner){
         return 0;
     }
-    else if(Besitzer == ""){
+    else if(Owner == ""){
         cout << "Wollen Sie die Straße " << Werkname << " um 150€ kaufen? " << endl;
-        cin >> Besitzer; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
-        if(Besitzer == "ja"){
+        cin >> Owner; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
+        if(Owner == "ja"){
             return -150;
         }
-        if(Besitzer != "ja"){
+        if(Owner != "ja"){
             return 0;
         }
     }
     return 666;
 }
 
-string Werke::Besitzerauslesen(){
-    return Besitzer;
+string Werke::Besitzerrueckgabe(){
+    return Owner;
+}
+
+int Werke::give_Field() {
+    return Field;
+}
+
+int Werke::ret_price(){
+    return 150;
+}
+
+void Werke::Buy(string buyer) {
+    Owner = buyer;
 }
 
 //everything
@@ -184,18 +209,20 @@ std::array<Grundstueke, 22> allocation_values_streets(){
     return Streets;
 }
 
-void allocation_values_Werke(){
+std::array<Werke, 2> allocation_values_Werke(){
     array<Werke, 2> Kraftwerke;
     Kraftwerke[0].allocation_values(12, 1, "Elektrizitaetswerk");
     Kraftwerke[1].allocation_values(28, 0, "Wasserwerk");
+    return Kraftwerke;
 }
 
-void allocation_values_train_station(){
-    array<Train_Station, 4> train_station;
+std::array<Train_Station, 4> allocation_values_train_station(){
+    std::array<Train_Station, 4> train_station;
     train_station[0].allocation_values(5, 15, 25, 35, "Bahnhof Wien Hauptbahnhof");
     train_station[1].allocation_values(15, 5, 25, 35, "Westbahnhof");
     train_station[2].allocation_values(25, 5, 15, 35, "Wien Hauptbahnhof");
     train_station[3].allocation_values(35, 5, 15, 25, "Franz Josef Bahnhof");
+    return train_station;
 }
 
 void allocation_values(){
@@ -207,16 +234,58 @@ void allocation_values(){
 std::array<int, 3> Check_field(int field) {
     std::array<int, 3> giveback;
     std::array<Grundstueke, 22> Streets = allocation_values_streets();
-    for(int i = 0; i < 22; i++) {
-        if(field == Streets[i].give_Field()){
-            if(Streets[i].Besitzerrueckgabe() == ""){
-                giveback[1] = 0;
+    std::array<Werke, 2> factories = allocation_values_Werke();
+    std::array<Train_Station, 4> train_station = allocation_values_train_station();
+
+    giveback[0] = -1;
+    
+    if(field % 10 == 0 || field == 2 || field == 4 || field == 7 || field == 17 || field == 22 || field == 23 || field == 36 || field == 38) {
+        giveback[0] = 3;
+        giveback[1] = 0;
+        giveback[2] = 0;
+    }
+
+    if(giveback[0] < 0) {
+        for(int i = 0; i < 22; i++) {
+            if(field == Streets[i].give_Field()){
+                if(Streets[i].Besitzerrueckgabe() == ""){
+                    giveback[1] = 0;
+                }
+                else {
+                    giveback[1] == 1;
+                    giveback[2] == Streets[i].ret_price();
+                }
+                giveback[0] = 0;
             }
-            else {
-                giveback[1] == 1;
-                giveback[2] == Streets[i].Buy();
+        }
+    }
+
+    if(giveback[0] < 0) {
+        for(int i = 0; i < 2; i++) {
+            if(field == factories[i].give_Field()){
+                if(factories[i].Besitzerrueckgabe() == ""){
+                    giveback[1] = 0;
+                }
+                else {
+                    giveback[1] == 1;
+                    giveback[2] == factories[i].ret_price();
+                }
+                giveback[0] = 1;
             }
-            giveback[0] = 0;
+        }
+    }
+    for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 2; i++) {
+            if(field == train_station[i].give_Field()){
+                if(train_station[i].Besitzerrueckgabe() == ""){
+                    giveback[1] = 0;
+                }
+                else {
+                    giveback[1] == 1;
+                    giveback[2] == train_station[i].ret_price();
+                }
+                giveback[0] = 3;
+            }
         }
     }
     return giveback;
