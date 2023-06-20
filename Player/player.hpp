@@ -28,15 +28,19 @@ class Player {
     public:
         Player(string name);
 
-        int Prison();
-
         void Transaktion(int money);
 
-        int Bewegen();
+        int Move();
 
-        string Besitzerauslesen();
+        int Prison();
 
-        int Rolled_dice();
+        string GetOwnerName();
+
+        std::vector<int> Rolled_dice();
+        /* the first returnvalue is the sum of the rolled Dices, the second value signals if it was a dice double or not. 
+          0 stands for no dice double
+          1 stands for a dice double
+        */
 };
 
 #endif

@@ -20,10 +20,3 @@ std::vector<int> Mix_vector(int max) {
     }
     return mixingvector;
 }
-
-std::vector<int> Rolling_Dice() {
-    std::vector<int> dice_vector;
-    dice_vector.push_back(Random(6) + 1);
-    dice_vector.push_back(Random(6) + 1);
-    return dice_vector;
-}

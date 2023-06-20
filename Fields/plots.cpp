@@ -1,107 +1,111 @@
 #include "plots.hpp"
 
 //Streets
-Grundstueke::Grundstueke() {}
+Lots::Lots() {}
 
-Grundstueke::Grundstueke(string Name, int field, int preis, int miete, int preis_haus, int gruppe0, int gruppe1 = 0){
-    Field=field;
-    Preis_Grundstuek=preis;
-    Miete=miete;
-    Preis_Haus=preis_haus;
-    Strasenname=Name;
-    group.push_back(gruppe0);
+Lots::Lots(string name,int field, int price, int miete, int price_house, int group0, int group1 = 22) {
+    Field = field;
+    price_of_Lot = price;
+    Rent = miete;
+    Price_of_House = price_house;
+    Streetname = name;
+    group.push_back(group0);
+    if(group1 < 21 && group1 > 0) {
+        group.push_back(group1);
+    }
 }
 
-string Grundstueke::Besitzerrueckgabe(){
+string Lots::return_Owner() {
     return Owner;
 }
 
-int Grundstueke::Miete_zahlen(string besitzer, string besitzer1, string besitzer2) {
-/*Wenn die Straße nicht dem Spieler der auf diese Straße gelandet ist gehört, wird durch abfragen der Besitzer der Straßen, geprüft, ob eine erhöte Miete gezahlt werden muss.
-    Dafür müssen jedoch auserhalb dieser Funktion die Besitzer der anderen Straßen dieser Gruppe abgefragt werden, da es in dieser Funktion sonst zu Fehlern bei der Kompilierung kommt
-    Wenn der Spieler keine erhöte Miete zahlen muss, wird geprüft obder Spieler die normale Miete zahlen muss.
-    Wenn das nicht zutrifft, wird geprüfft, ob der Spieler die Straße besitzt.
-    Sonst wird überprüft ob ein Grundstück noch nicht verkauf ist, das heißt ob 'Besitzer == ""'.
-    Wenn das zutrifft, wird der Spieler gefragt, ob dieser diese Straße kaufen will.
-    Wenn durch einen Fehler, keine dieser Möglichkeiten zutrifft, dass heißt, wenn der Teufel seine Finger im Spiel hat ;), wird 666 zurückgegeben.
+int Lots::pay_Rent(string owner, string owner1, string owner2) {
+/*
+    If the street does not belong to the player who landed on that street, querying the owner of the street will determine if an increased rent is required to be paid.
+    To do this, however, the owners of the other streets in this group must be queried outside of this function, otherwise this function will result in errors during compilation
+    If the player does not have to pay the increased rent, it is checked whether the player has to pay the normal rent.
+    If not, a check is made to see if the player owns the straight.
+    Otherwise it is checked whether a property is not yet for sale, i.e. whether 'Owner == ""'.
+    If so, the player will be asked if he wants to buy that road.
+    If, due to an error, none of these possibilities apply, that is, if the devil has his fingers in the game ;), 666 is returned.
 */
-    if(Owner != besitzer &&
-        (Owner != besitzer1 && besitzer == besitzer1) &&
-        (Owner != besitzer2 && (besitzer == besitzer2 || besitzer2 == "30"))){
-        return Miete*(-2);
+    if(Owner != owner &&
+      (Owner != owner1 && owner == owner1) &&
+      (Owner != owner2 && (owner == owner2 || owner2 == "30"))){
+        return Rent*(-2);
     }
-    else if(Owner != besitzer){
-        return Miete*(-1);
+    else if(Owner != owner){
+        return Rent*(-1);
     }
-    else if(Owner == besitzer) {
+    else if(Owner == owner) {
         return 0;
     }
     else if(Owner == ""){
-        std::cout << "Wollen Sie die Straße " << Strasenname << " um " << Preis_Grundstuek << " kaufen? " << std::endl;
-        cin >> besitzer; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
-        Owner = besitzer;
-        if(besitzer == "ja"){
-            return Preis_Grundstuek*(-1);
+        std::cout << "Wollen Sie die Straße " << Streetname << " um " << price_of_Lot << " kaufen? " << std::endl;
+        cin >> owner; //This desition has to be shown as to bottuns with the options "Ja" for "Yes" and "Nein" for "No"
+        Owner = owner;
+        if(owner == "ja"){
+            return price_of_Lot*(-1);
         }
-        if(besitzer != "nein"){
+        if(owner != "nein"){
             return 0;
         }
     }
     return 666;
 }
 
-void Grundstueke::Buy(string buyer) {
+void Lots::Buy(string buyer) {
     Owner = buyer;
 }
 
-int Grundstueke::ret_price() {
-    return Preis_Grundstuek;
+int Lots::ret_price() {
+    return price_of_Lot;
 }
 
-int Grundstueke::give_Field() {
+int Lots::give_Field() {
     return Field;
 }
 
 //trainstations
-void Train_Station::allocation_values(int field, int gruppe0, int gruppe1, int gruppe2, string Name){
-    Field=field;
-    Gruppe[0]=gruppe0;
-    Gruppe[1]=gruppe1;
-    Gruppe[2]=gruppe2;
-    train_station=Name;
+void Train_Station::allocation_values(int field, int group0, int group1, int group2, string name){
+    Field = field;
+    Group[0] = group0;
+    Group[1] = group1;
+    Group[2] = group2;
+    Train_station = name;
 }
 
-int Train_Station::Miete(string schueldiger, string Besitzer0, string Besitzer1, string Besitzer2){
-    if(Owner!=Besitzer0 && Owner!=Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
+int Train_Station::Rent(string schueldiger, string owner0, string owner1, string owner2){
+    if(Owner!=owner0 && Owner!=owner1 && Owner!=owner2 && Owner!=schueldiger && Owner!=""){
         return 25;
     }
-    if(Owner!=Besitzer0 && Owner!=Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner!=owner0 && Owner!=owner1 && Owner==owner2 && Owner!=schueldiger && Owner!=""){
         return 50;
     }
-    if(Owner!=Besitzer0 && Owner==Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner!=owner0 && Owner==owner1 && Owner!=owner2 && Owner!=schueldiger && Owner!=""){
         return 50;
     }
-    if(Owner==Besitzer0 && Owner!=Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner==owner0 && Owner!=owner1 && Owner!=owner2 && Owner!=schueldiger && Owner!=""){
         return 50;
     }
-    if(Owner!=Besitzer0 && Owner==Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner!=owner0 && Owner==owner1 && Owner==owner2 && Owner!=schueldiger && Owner!=""){
         return 100;
     }
-    if(Owner==Besitzer0 && Owner!=Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner==owner0 && Owner!=owner1 && Owner==owner2 && Owner!=schueldiger && Owner!=""){
         return 100;
     }
-    if(Owner==Besitzer0 && Owner==Besitzer1 && Owner!=Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner==owner0 && Owner==owner1 && Owner!=owner2 && Owner!=schueldiger && Owner!=""){
         return 100;
     }
-    if(Owner==Besitzer0 && Owner==Besitzer1 && Owner==Besitzer2 && Owner!=schueldiger && Owner!=""){
+    if(Owner==owner0 && Owner==owner1 && Owner==owner2 && Owner!=schueldiger && Owner!=""){
         return 200;
     }
     if(Owner==schueldiger){
         return 0;
     }
     if(Owner==""){
-        cout << "Wollen Sie den train_station " << train_station << " um 200€ kaufen? " << endl;
-        cin >> Owner; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
+        cout << "Wollen Sie den train_station " << Train_station << " um 200€ kaufen? " << endl;
+        cin >> Owner; //This desition has to be shown as to bottuns with the options "Ja" for "Yes" and "Nein" for "No"
         if(Owner == "ja"){
             return -200;
         }
@@ -129,25 +133,25 @@ void Train_Station::Buy(string buyer) {
 }
 
 //Werke
-void Werke::allocation_values(int field, int gruppe, string Name){
-    Field=field;
-    group=gruppe;
-    Werkname=Name;
+void power_plant::allocation_values(int field, int group, string name){
+    Field = field;
+    group = group;
+    Name_of_power_plant = name;
 }
 
-int Werke::miete(int Wuerfelaugen, string schueldiger, string besitzer1, string besitzer2){
-    if(besitzer1 == Owner && Owner != "" && schueldiger != Owner && besitzer2 != Owner){
-        return Wuerfelaugen*4;
+int power_plant::Rent(int dice_eyes, string schueldiger, string owner1, string owner2){
+    if(owner1 == Owner && Owner != "" && schueldiger != Owner && owner2 != Owner){
+        return dice_eyes*4;
     }
-    else if(besitzer1 == Owner && besitzer2 == Owner && Owner != "" && schueldiger != Owner){
-        return Wuerfelaugen*10;
+    else if(owner1 == Owner && owner2 == Owner && Owner != "" && schueldiger != Owner){
+        return dice_eyes*10;
     }
     else if(schueldiger == Owner){
         return 0;
     }
     else if(Owner == ""){
-        cout << "Wollen Sie die Straße " << Werkname << " um 150€ kaufen? " << endl;
-        cin >> Owner; //diese Entscheidung muss als zwei Buttons angezeigt werden mit den Auswahlmöglichkeiten ja und nein
+        cout << "Wollen Sie die Straße " << Name_of_power_plant << " um 150€ kaufen? " << endl;
+        cin >> Owner; //This desition has to be shown as to bottuns with the options "Ja" for "Yes" and "Nein" for "No"
         if(Owner == "ja"){
             return -150;
         }
@@ -158,65 +162,65 @@ int Werke::miete(int Wuerfelaugen, string schueldiger, string besitzer1, string 
     return 666;
 }
 
-string Werke::Besitzerrueckgabe(){
+string power_plant::Besitzerrueckgabe(){
     return Owner;
 }
 
-int Werke::give_Field() {
+int power_plant::give_Field() {
     return Field;
 }
 
-int Werke::ret_price(){
+int power_plant::ret_price(){
     return 150;
 }
 
-void Werke::Buy(string buyer) {
+void power_plant::Buy(string buyer) {
     Owner = buyer;
 }
 
 //everything
-std::array<Grundstueke, 22> allocation_values_streets(){
-    std::array<Grundstueke, 22> Streets;
-    Streets[0] = Grundstueke("Esterhazystrasse", 1, 60, 2, 50, 1);
-    Streets[1] = Grundstueke("Kremserstrasse", 3, 60, 4, 50, 0);
+std::array<Lots, 22> allocation_values_streets(){
+    std::array<Lots, 22> Streets;
+    Streets[0] = Lots("Esterhazystrasse", 1, 60, 2, 50, 1);
+    Streets[1] = Lots("Kremserstrasse", 3, 60, 4, 50, 0);
 
-    Streets[2] = Grundstueke("Grieskai", 6, 100, 6, 50, 3, 4);
-    Streets[3] = Grundstueke("Herrengasse", 8, 100, 6, 50, 2, 4);
-    Streets[4] = Grundstueke("Annenstrasse", 9, 120, 8, 50, 2, 3);
+    Streets[2] = Lots("Grieskai", 6, 100, 6, 50, 3, 4);
+    Streets[3] = Lots("Herrengasse", 8, 100, 6, 50, 2, 4);
+    Streets[4] = Lots("Annenstrasse", 9, 120, 8, 50, 2, 3);
 
-    Streets[5] = Grundstueke("Untere Donaulände", 11, 140, 10, 100, 6, 7);
-    Streets[6] = Grundstueke("Taubenmarkt", 13, 140, 10, 100, 5, 7);
-    Streets[7] = Grundstueke("Landstrasse", 14, 160, 12, 100, 5, 6);
+    Streets[5] = Lots("Untere Donaulände", 11, 140, 10, 100, 6, 7);
+    Streets[6] = Lots("Taubenmarkt", 13, 140, 10, 100, 5, 7);
+    Streets[7] = Lots("Landstrasse", 14, 160, 12, 100, 5, 6);
 
-    Streets[8] = Grundstueke("Mariatheresienstrasse", 16, 180, 14, 100, 9, 10);
-    Streets[9] = Grundstueke("Herzogfriedrichstrasse", 18, 180, 14, 100, 8, 10);
-    Streets[10] = Grundstueke("Andreashoferstrasse", 19, 200, 16, 100, 8, 9);
+    Streets[8] = Lots("Mariatheresienstrasse", 16, 180, 14, 100, 9, 10);
+    Streets[9] = Lots("Herzogfriedrichstrasse", 18, 180, 14, 100, 8, 10);
+    Streets[10] = Lots("Andreashoferstrasse", 19, 200, 16, 100, 8, 9);
 
-    Streets[11] = Grundstueke("10. Oktoberstrasse", 21, 220, 18, 150, 12, 13);
-    Streets[12] = Grundstueke("Neuer Platz", 23, 220, 18, 150, 11, 13);
-    Streets[13] = Grundstueke("Gramergasse", 24, 240, 20, 150, 11, 12);
+    Streets[11] = Lots("10. Oktoberstrasse", 21, 220, 18, 150, 12, 13);
+    Streets[12] = Lots("Neuer Platz", 23, 220, 18, 150, 11, 13);
+    Streets[13] = Lots("Gramergasse", 24, 240, 20, 150, 11, 12);
 
-    Streets[14] = Grundstueke("Hellbrunnerstrasse", 26, 260, 22, 150, 15, 16);
-    Streets[15] = Grundstueke("Domplatz", 27, 260, 22, 150, 14, 16);
-    Streets[16] = Grundstueke("Gedreidegasse", 29, 280, 24, 150, 14, 15);
+    Streets[14] = Lots("Hellbrunnerstrasse", 26, 260, 22, 150, 15, 16);
+    Streets[15] = Lots("Domplatz", 27, 260, 22, 150, 14, 16);
+    Streets[16] = Lots("Gedreidegasse", 29, 280, 24, 150, 14, 15);
 
-    Streets[17] = Grundstueke("Mariahilferstrasse", 31, 300, 26, 200, 18, 19);
-    Streets[18] = Grundstueke("Kärntnerstrasse", 33, 300, 26, 200, 17, 19);
-    Streets[19] = Grundstueke("Graben", 34, 340, 28, 200, 17, 18);
+    Streets[17] = Lots("Mariahilferstrasse", 31, 300, 26, 200, 18, 19);
+    Streets[18] = Lots("Kärntnerstrasse", 33, 300, 26, 200, 17, 19);
+    Streets[19] = Lots("Graben", 34, 340, 28, 200, 17, 18);
 
-    Streets[20] = Grundstueke("Kronmarktstrasse", 37, 350, 50, 200, 21);
-    Streets[21] = Grundstueke("Kaiserstrasse", 39, 400, 100, 200, 20);
+    Streets[20] = Lots("Kronmarktstrasse", 37, 350, 50, 200, 21);
+    Streets[21] = Lots("Kaiserstrasse", 39, 400, 100, 200, 20);
     return Streets;
 }
 
-std::array<Werke, 2> allocation_values_Werke(){
-    array<Werke, 2> Kraftwerke;
-    Kraftwerke[0].allocation_values(12, 1, "Elektrizitaetswerk");
-    Kraftwerke[1].allocation_values(28, 0, "Wasserwerk");
-    return Kraftwerke;
+std::array<power_plant, 2> allocation_values_Werke() {
+    array<power_plant, 2> power_plant;
+    power_plant[0].allocation_values(12, 1, "Elektrizitaetswerk");
+    power_plant[1].allocation_values(28, 0, "Wasserwerk");
+    return power_plant;
 }
 
-std::array<Train_Station, 4> allocation_values_train_station(){
+std::array<Train_Station, 4> allocation_values_train_station() {
     std::array<Train_Station, 4> train_station;
     train_station[0].allocation_values(5, 15, 25, 35, "Bahnhof Wien Hauptbahnhof");
     train_station[1].allocation_values(15, 5, 25, 35, "Westbahnhof");
@@ -225,7 +229,7 @@ std::array<Train_Station, 4> allocation_values_train_station(){
     return train_station;
 }
 
-void allocation_values(){
+void allocation_values() {
     allocation_values_streets();
     allocation_values_Werke();
     allocation_values_train_station();
@@ -233,8 +237,8 @@ void allocation_values(){
 
 std::array<int, 3> Check_field(int field) {
     std::array<int, 3> giveback;
-    std::array<Grundstueke, 22> Streets = allocation_values_streets();
-    std::array<Werke, 2> factories = allocation_values_Werke();
+    std::array<Lots, 22> Streets = allocation_values_streets();
+    std::array<power_plant, 2> factories = allocation_values_Werke();
     std::array<Train_Station, 4> train_station = allocation_values_train_station();
 
     giveback[0] = -1;
@@ -248,7 +252,7 @@ std::array<int, 3> Check_field(int field) {
     if(giveback[0] < 0) {
         for(int i = 0; i < 22; i++) {
             if(field == Streets[i].give_Field()){
-                if(Streets[i].Besitzerrueckgabe() == ""){
+                if(Streets[i].return_Owner() == ""){
                     giveback[1] = 0;
                 }
                 else {
@@ -260,7 +264,7 @@ std::array<int, 3> Check_field(int field) {
         }
     }
 
-    if(giveback[0] < 0) {
+    if(giveback[1] < 0) {
         for(int i = 0; i < 2; i++) {
             if(field == factories[i].give_Field()){
                 if(factories[i].Besitzerrueckgabe() == ""){

@@ -19,24 +19,27 @@ void Player::Transaktion(int money) {
     }
 }
 
-int Player::Bewegen() {
+int Player::Move() {
+    std::vector<int> dice = Player::Rolled_dice();
     if(prison) {
         Prison();
     }
-    std::vector<int> dice = Rolling_Dice();
-    for(int i = 0; i < 3; i++) {
-        Field = Field + dice[0] + dice[1];
-        if(Field > 39) {
-            Field = Field-39;
+    else {
+        for(int i = 0; i < 3; i++) {
+            Field = Field + dice[0] + dice[1];
+            if(Field > 39) {
+                Field = Field-39;
+            }
+            if(dice[0] != dice[1]) {
+                break;
+            }
+            dice = Player::Rolled_dice();
+            doublets++;
+            std::cout << doublets << std::endl;
         }
-        if(dice[0] != dice[1]) {
-            break;
-        }
-        dice = Rolling_Dice();
-        doublets++;
-        std::cout << doublets << std::endl;
     }
-    if(doublets == 3) {
+    
+    if(doublets == 3 || Field == 30) {
         prison = true;
     }
     else {
@@ -49,12 +52,15 @@ int Player::Bewegen() {
     return Field;
 }
 
-int Player::Rolled_dice() {
-    return doublets;
+std::vector<int> Player::Rolled_dice() {
+    std::vector<int> dice_vector;
+    dice_vector.push_back(Random(6) + 1);
+    dice_vector.push_back(Random(6) + 1);
+    return dice_vector;
 }
 
 int Player::Prison() {
-    std::vector<int> dice = Rolling_Dice();
+    std::vector<int> dice = Player::Rolled_dice();
     if(dice[0] == dice[1]) {
         prison = false;
     }
@@ -69,6 +75,6 @@ int Player::Prison() {
     return dice[0] + dice[1];
 }
 
-string Player::Besitzerauslesen() {
+string Player::GetOwnerName() {
     return Name;
 }
