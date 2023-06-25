@@ -3,7 +3,7 @@
 //Streets
 Lots::Lots() {}
 
-Lots::Lots(string name,int field, int price, int miete, int price_house, int group0, int group1 = 22) {
+Lots::Lots(string name,int field, int price, int miete, int price_house, int group0, int group1) {
     Field = field;
     price_of_Lot = price;
     Rent = miete;

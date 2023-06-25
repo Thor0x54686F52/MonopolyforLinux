@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player(string name) {
+Player::Player(std::string name) {
     Name = name;
 }
 
@@ -75,6 +75,18 @@ int Player::Prison() {
     return dice[0] + dice[1];
 }
 
-string Player::GetOwnerName() {
+std::string Player::GetOwnerName() {
     return Name;
+}
+
+std::vector<Player> Set_Player(int max_player) {
+  std::string name;
+  std::vector<Player> player_in_game;
+  for(int i = 1; i < max_player + 1; i++) {
+    std::cout << "Bitte gebe den Namen vom " << i << " Spieler ein: " << std::endl;
+    std::cin >> name;
+    Player player_while_setting = Player(name);
+    player_in_game.push_back(player_while_setting);
+  }
+  return player_in_game;
 }
